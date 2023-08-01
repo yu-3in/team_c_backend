@@ -20,22 +20,22 @@ func SetupRoutes(e *echo.Echo, db *gorm.DB) {
 	repo := repository.NewRepository(db)
 	h := NewHandler(repo)
 
-	v1 := e.Group("/v1")
+	v1 := e.Group("/v1/")
 	{
-		u := v1.Group("/users")
+		u := v1.Group("users/")
 		{
 			u.GET("", h.GetUsers)
-			u.GET("/:id", h.GetUser)
+			u.GET(":id", h.GetUser)
 		}
-		g := v1.Group("/genres")
+		g := v1.Group("genres/")
 		{
 			g.GET("", h.GetGenres)
-			g.GET("/:id", h.GetGenre)
+			g.GET(":id", h.GetGenre)
 		}
-		t := v1.Group("/tickets")
+		t := v1.Group("tickets/")
 		{
 			t.GET("", h.GetTickets)
-			t.GET("/:id", h.GetTicket)
+			t.GET(":id", h.GetTicket)
 		}
 	}
 }
