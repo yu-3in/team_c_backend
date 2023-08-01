@@ -1,7 +1,7 @@
 package handler
 
 import "github.com/labstack/echo/v4"
-		
+
 func (h *Handler) GetUsers(c echo.Context) error {
 	users, err := h.repo.GetUsers()
 	if err != nil {

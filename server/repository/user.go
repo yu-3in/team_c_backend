@@ -14,32 +14,32 @@ func (r *Repository) GetUsers() ([]*model.User, error) {
 
 	users := []*model.User{
 		{
-			ID: 1,
-			Name: "John",
-			Email: "exsample@exsample.com",
+			ID:       1,
+			Name:     "John",
+			Email:    "exsample@exsample.com",
 			Password: "password",
 			Genres: []model.Genre{
 				{
-				ID: 1,
-				Title: "BackEnd",
-				CreatedAt: time.Now(),
-				UpdatedAt: time.Now(),
+					ID:        1,
+					Title:     "BackEnd",
+					CreatedAt: time.Now(),
+					UpdatedAt: time.Now(),
 				},
 			},
 			CreatedAt: time.Now(),
 			UpdatedAt: time.Now(),
 		},
 		{
-			ID: 2,
-			Name: "Mike",
-			Email: "exsample2@exsample.com",
+			ID:       2,
+			Name:     "Mike",
+			Email:    "exsample2@exsample.com",
 			Password: "password",
 			Genres: []model.Genre{
 				{
-				ID: 1,
-				Title: "FrontEnd",
-				CreatedAt: time.Now(),
-				UpdatedAt: time.Now(),
+					ID:        1,
+					Title:     "FrontEnd",
+					CreatedAt: time.Now(),
+					UpdatedAt: time.Now(),
 				},
 			},
 			CreatedAt: time.Now(),
@@ -57,16 +57,16 @@ func (r *Repository) GetUser(id int) (*model.User, error) {
 	// }
 
 	user := model.User{
-		ID: 1,
-		Name: "John",
-		Email: "exsample@exsample.com",
+		ID:       1,
+		Name:     "John",
+		Email:    "exsample@exsample.com",
 		Password: "password",
 		Genres: []model.Genre{
 			{
-			ID: 1,
-			Title: "BackEnd",
-			CreatedAt: time.Now(),
-			UpdatedAt: time.Now(),
+				ID:        1,
+				Title:     "BackEnd",
+				CreatedAt: time.Now(),
+				UpdatedAt: time.Now(),
 			},
 		},
 		CreatedAt: time.Now(),
