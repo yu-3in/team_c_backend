@@ -3,8 +3,8 @@ package handler
 import (
 	"server/repository"
 
-	"gorm.io/gorm"
 	"github.com/labstack/echo/v4"
+	"gorm.io/gorm"
 )
 
 type Handler struct {
