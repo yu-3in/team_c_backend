@@ -27,11 +27,11 @@ func SetupRoutes(e *echo.Echo, db *gorm.DB) {
 			u.GET("", h.GetUsers)
 			u.GET("/:id", h.GetUser)
 		}
-		// g := v1.Group("/genres")
-		// {
-		// 	g.GET("", getGenres)
-		// 	g.GET("/:id", getGenre)
-		// }
+		g := v1.Group("/genres")
+		{
+			g.GET("", h.GetGenres)
+			g.GET("/:id", h.GetGenre)
+		}
 		// t := v1.Group("/tickets")
 		// {
 		// 	t.GET("", getTickets)
