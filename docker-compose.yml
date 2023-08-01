@@ -1,0 +1,57 @@
+version: "3.8"
+services:
+  c-bakend:
+    container_name: c-bakend
+    build:
+      context: .
+      dockerfile: docker/go/Dockerfile
+    volumes:
+      - .:/app
+    working_dir: /app/server
+    ports:
+      - "1222:1222"
+    restart: always
+    tty: true
+    environment:
+      ENV: "development"
+      PORT: "1222"
+      DRIVER: "mysql"
+      DATASOURCE: "user:password@tcp(mysql)/db?charset=utf8mb4&parseTime=true"
+    command: sh ./scripts/api.sh
+    depends_on:
+      - mysql
+    networks:
+      - c_network
+
+  mysql:
+    container_name: mysql
+    platform: "linux/x86_64"
+    image: "mysql:8.0"
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: passwordroot
+    volumes:
+      - "mysql-db:/var/lib/mysql"
+      - "./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf"
+    networks:
+      - c_network
+
+  setup:
+    container_name: setup
+    image: alpine:latest
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: cp pre-commit .git/hooks/pre-commit
+
+volumes:
+  mysql-db:
+    driver: local
+
+networks:
+  c_network:
+    external: true
