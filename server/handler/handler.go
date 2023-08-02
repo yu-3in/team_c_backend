@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"server/middleware"
 	"server/repository"
 
 	"github.com/labstack/echo/v4"
@@ -20,32 +21,36 @@ func SetupRoutes(e *echo.Echo, db *gorm.DB) {
 	repo := repository.NewRepository(db)
 	h := NewHandler(repo)
 
-	// auth := e.Group("", middleware.AuthenticationMiddleware)
-
 	v1 := e.Group("/v1")
 	{
 		v1.POST("/login", h.Login)
+		v1.POST("/sinup", h.CreateUser)
 
-		u := v1.Group("/users")
+		auth := v1.Group("", middleware.AuthenticationMiddleware)
 		{
-			u.GET("", h.GetUsers)
-			u.GET("/:id", h.GetUser)
-			u.POST("", h.CreateUser)
-			u.PUT("/:id", h.UpdateUser)
-		}
-		g := v1.Group("/genres")
-		{
-			g.GET("", h.GetGenres)
-			g.GET("/:id", h.GetGenre)
-			g.POST("", h.CreateGenre)
-			g.PUT("/:id", h.UpdateGenre)
-		}
-		t := v1.Group("/tickets")
-		{
-			t.GET("", h.GetTickets)
-			t.GET("/:id", h.GetTicket)
-			t.POST("", h.CreateTicket)
-			t.PUT("/:id", h.UpdateTicket)
+			auth.GET("/me", h.GetME)
+			auth.PUT("/me", h.UpdateME)
+
+			u := auth.Group("/users")
+			{
+				u.GET("", h.GetUsers)
+				u.GET("/:id", h.GetUser)
+
+			}
+			g := auth.Group("/genres")
+			{
+				g.GET("", h.GetGenres)
+				g.GET("/:id", h.GetGenre)
+				g.POST("", h.CreateGenre)
+				g.PUT("/:id", h.UpdateGenre)
+			}
+			t := auth.Group("/tickets")
+			{
+				t.GET("", h.GetTickets)
+				t.GET("/:id", h.GetTicket)
+				t.POST("", h.CreateTicket)
+				t.PUT("/:id", h.UpdateTicket)
+			}
 		}
 	}
 }
