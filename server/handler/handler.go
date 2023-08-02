@@ -21,6 +21,8 @@ func SetupRoutes(e *echo.Echo, db *gorm.DB) {
 	repo := repository.NewRepository(db)
 	h := NewHandler(repo)
 
+	e.GET("/", helloWorld)
+
 	v1 := e.Group("/v1")
 	{
 		v1.POST("/login", h.Login)
@@ -56,4 +58,8 @@ func SetupRoutes(e *echo.Echo, db *gorm.DB) {
 			}
 		}
 	}
+}
+
+func helloWorld(c echo.Context) error {
+	return c.JSON(200, "Hello World")
 }
