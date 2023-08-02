@@ -13,10 +13,9 @@ type reqCreateUser struct {
 }
 
 type reqUpdateUser struct {
-	ID       int    `param:"id"`
-	Name     string `json:"name"`
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	ID    int    `param:"id"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
 }
 
 func (h *Handler) GetUsers(c echo.Context) error {
@@ -29,7 +28,7 @@ func (h *Handler) GetUsers(c echo.Context) error {
 
 func (h *Handler) GetUser(c echo.Context) error {
 	var req struct {
-		ID int `json:"id"`
+		ID int `param:"id"`
 	}
 	if err := c.Bind(&req); err != nil {
 		return err
