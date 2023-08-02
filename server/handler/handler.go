@@ -40,6 +40,8 @@ func SetupRoutes(e *echo.Echo, db *gorm.DB) {
 		{
 			t.GET("/", h.GetTickets)
 			t.GET(":id", h.GetTicket)
+			t.POST("", h.CreateTicket)
+			t.PUT("/:id", h.UpdateTicket)
 		}
 	}
 }
