@@ -13,4 +13,4 @@ sh:
 log:
 	docker-compose logs -f c-bakend
 mysql:
-	docker compose exec mysql mysql -uroot -ppasswordroot -Ddb
+	docker compose exec mysql mysql -uroot -pdsfjhasdfhjdsaf -Dpractice_db

@@ -4,7 +4,7 @@
 
 ```
 make add-network
-make build
+make build-nc
 make up
 ```
 

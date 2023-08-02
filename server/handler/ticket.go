@@ -10,7 +10,7 @@ import (
 type reqCreateTicket struct {
 	Title       string    `json:"title"`
 	Status      string    `json:"status"`
-	DueDate     time.Time `json:"dateDate"`
+	DueDate     time.Time `json:"dueDate"`
 	StartAt     time.Time `json:"startAt"`
 	EndAt       time.Time `json:"endAt"`
 	Description string    `json:"description"`
@@ -22,7 +22,7 @@ type reqUpdateTicket struct {
 	ID          int       `param:"id"`
 	Title       string    `json:"title"`
 	Status      string    `json:"status"`
-	DueDate     time.Time `json:"dateDate"`
+	DueDate     time.Time `json:"dueDate"`
 	StartAt     time.Time `json:"startAt"`
 	EndAt       time.Time `json:"endAt"`
 	Description string    `json:"description"`
