@@ -33,6 +33,8 @@ func SetupRoutes(e *echo.Echo, db *gorm.DB) {
 		{
 			g.GET("", h.GetGenres)
 			g.GET("/:id", h.GetGenre)
+			g.POST("", h.CreateGenre)
+			g.PUT("/:id", h.UpdateGenre)
 		}
 		t := v1.Group("/tickets")
 		{

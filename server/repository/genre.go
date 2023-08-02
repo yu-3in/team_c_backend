@@ -46,3 +46,19 @@ func (r *Repository) GetGenre(id int) (*model.Genre, error) {
 	}
 	return &genre, nil
 }
+
+func (r *Repository) CreateGenre(genre *model.Genre) (*model.Genre, error) {
+	result := r.db.Create(genre)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return genre, nil
+}
+
+func (r *Repository) UpdateGenre(genre *model.Genre) (*model.Genre, error) {
+	result := r.db.Save(genre)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return genre, nil
+}
