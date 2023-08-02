@@ -24,7 +24,7 @@ func SetupRoutes(e *echo.Echo, db *gorm.DB) {
 	v1 := e.Group("/v1")
 	{
 		v1.POST("/login", h.Login)
-		v1.POST("/sinup", h.CreateUser)
+		v1.POST("/signup", h.CreateUser)
 		v1.POST("/logout", h.Logout)
 
 		auth := v1.Group("", middleware.AuthenticationMiddleware)
