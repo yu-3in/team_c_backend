@@ -30,16 +30,15 @@ func (h *Handler) GetTicket(c echo.Context) error {
 }
 
 type reqCreateTicket struct {
-	Title       string `json:"title"`
-	Status      string `json:"status"`
+	Title       string    `json:"title"`
+	Status      string    `json:"status"`
 	DueDate     time.Time `json:"dateDate"`
 	StartAt     time.Time `json:"startAt"`
 	EndAt       time.Time `json:"endAt"`
-	Description string `json:"description"`
-	UserID      int    `json:"userId"`
-	GenreID     int    `json:"genreId"`
+	Description string    `json:"description"`
+	UserID      int       `json:"userId"`
+	GenreID     int       `json:"genreId"`
 }
-	
 
 func (h *Handler) CreateTicket(c echo.Context) error {
 	var req reqCreateTicket
@@ -95,7 +94,7 @@ func (h *Handler) UpdateTicket(c echo.Context) error {
 	ticket.Description = req.Description
 	ticket.UserID = req.UserID
 	ticket.GenreID = req.GenreID
-	
+
 	ticket, err = h.repo.UpdateTicket(ticket)
 	if err != nil {
 		return c.JSON(500, err)
