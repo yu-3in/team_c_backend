@@ -7,6 +7,29 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+type reqCreateTicket struct {
+	Title       string    `json:"title"`
+	Status      string    `json:"status"`
+	DueDate     time.Time `json:"dateDate"`
+	StartAt     time.Time `json:"startAt"`
+	EndAt       time.Time `json:"endAt"`
+	Description string    `json:"description"`
+	UserID      int       `json:"userId"`
+	GenreID     int       `json:"genreId"`
+}
+
+type reqUpdateTicket struct {
+	ID          int       `param:"id"`
+	Title       string    `json:"title"`
+	Status      string    `json:"status"`
+	DueDate     time.Time `json:"dateDate"`
+	StartAt     time.Time `json:"startAt"`
+	EndAt       time.Time `json:"endAt"`
+	Description string    `json:"description"`
+	UserID      int       `json:"userId"`
+	GenreID     int       `json:"genreId"`
+}
+
 func (h *Handler) GetTickets(c echo.Context) error {
 	tickets, err := h.repo.GetTickets()
 	if err != nil {
@@ -17,7 +40,7 @@ func (h *Handler) GetTickets(c echo.Context) error {
 
 func (h *Handler) GetTicket(c echo.Context) error {
 	var req struct {
-		ID int `json:"id"`
+		ID int `param:"id"`
 	}
 	if err := c.Bind(&req); err != nil {
 		return err
@@ -27,17 +50,6 @@ func (h *Handler) GetTicket(c echo.Context) error {
 		return c.JSON(500, err)
 	}
 	return c.JSON(200, ticket)
-}
-
-type reqCreateTicket struct {
-	Title       string    `json:"title"`
-	Status      string    `json:"status"`
-	DueDate     time.Time `json:"dateDate"`
-	StartAt     time.Time `json:"startAt"`
-	EndAt       time.Time `json:"endAt"`
-	Description string    `json:"description"`
-	UserID      int       `json:"userId"`
-	GenreID     int       `json:"genreId"`
 }
 
 func (h *Handler) CreateTicket(c echo.Context) error {
@@ -61,18 +73,6 @@ func (h *Handler) CreateTicket(c echo.Context) error {
 	}
 
 	return c.JSON(200, ticket)
-}
-
-type reqUpdateTicket struct {
-	ID          int       `param:"id"`
-	Title       string    `json:"title"`
-	Status      string    `json:"status"`
-	DueDate     time.Time `json:"dateDate"`
-	StartAt     time.Time `json:"startAt"`
-	EndAt       time.Time `json:"endAt"`
-	Description string    `json:"description"`
-	UserID      int       `json:"userId"`
-	GenreID     int       `json:"genreId"`
 }
 
 func (h *Handler) UpdateTicket(c echo.Context) error {
