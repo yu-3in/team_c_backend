@@ -31,11 +31,13 @@ func SetupRoutes(e *echo.Echo, db *gorm.DB) {
 		{
 			auth.GET("/me", h.GetME)
 			auth.PUT("/me", h.UpdateME)
+			auth.POST("/logout", h.Logout)
 
 			u := auth.Group("/users")
 			{
 				u.GET("", h.GetUsers)
 				u.GET("/:id", h.GetUser)
+				u.POST("/genres", h.CreateUserGenre)
 
 			}
 			g := auth.Group("/genres")
