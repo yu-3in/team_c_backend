@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"server/repository"
 	"server/middleware"
+	"server/repository"
 
 	"github.com/labstack/echo/v4"
 	"gorm.io/gorm"
@@ -35,7 +35,7 @@ func SetupRoutes(e *echo.Echo, db *gorm.DB) {
 			{
 				u.GET("", h.GetUsers)
 				u.GET("/:id", h.GetUser)
-				
+
 			}
 			g := auth.Group("/genres")
 			{
