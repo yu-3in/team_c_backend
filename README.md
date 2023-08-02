@@ -1,5 +1,6 @@
 # teamC
 
+.env を作成する
 
 ```
 make add-network
