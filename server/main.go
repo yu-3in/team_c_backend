@@ -16,6 +16,7 @@ func main() {
 	// middleware
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
+	e.Use(middleware.CORS())
 
 	db := config.NewDB()
 	handler.SetupRoutes(e, db)
