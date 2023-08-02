@@ -1,6 +1,8 @@
 package config
 
 import (
+	"server/model"
+
 	"github.com/caarlos0/env"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -26,4 +28,11 @@ func NewDB() *gorm.DB {
 		panic("failed to connect database")
 	}
 	return db
+}
+
+func AutoMigrate(db *gorm.DB) {
+	err := db.AutoMigrate(&model.User{}, &model.Ticket{}, &model.Genre{})
+	if err != nil {
+		panic(err)
+	}
 }
