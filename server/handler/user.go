@@ -6,6 +6,8 @@ import (
 	"server/model"
 	"server/util"
 
+	"fmt"
+
 	"github.com/labstack/echo/v4"
 )
 
@@ -24,6 +26,10 @@ type reqUpdateUser struct {
 type reqLoginUser struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
+}
+
+type reqUpdateUserGenre struct {
+	GenreID []int `json:"genre_ids"`
 }
 
 func (h *Handler) GetUsers(c echo.Context) error {
@@ -102,6 +108,38 @@ func (h *Handler) UpdateME(c echo.Context) error {
 	user.Name = req.Name
 	user.Email = req.Email
 	res, err := h.repo.UpdateUser(user)
+	if err != nil {
+		return c.JSON(500, err)
+	}
+
+	return c.JSON(200, res)
+}
+
+func (h *Handler) CreateUserGenre(c echo.Context) error {
+	userID := c.Get("userID").(int)
+	var req reqUpdateUserGenre
+	if err := c.Bind(&req); err != nil {
+		return err
+	}
+
+	user, err := h.repo.GetUser(userID)
+	if err != nil {
+		return c.JSON(500, err)
+	}
+
+	for _, genreID := range req.GenreID {
+		genre, err := h.repo.GetGenre(genreID)
+		fmt.Println(genre, "genre")
+		fmt.Println(genreID, "req.GenreID")
+
+		if err != nil {
+			return c.JSON(500, err)
+		}
+		user.Genres = append(user.Genres, *genre)
+	}
+	fmt.Println(user.Genres, "Genre[]")
+
+	res, err := h.repo.CreateUserGenre(user)
 	if err != nil {
 		return c.JSON(500, err)
 	}

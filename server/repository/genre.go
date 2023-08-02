@@ -15,7 +15,7 @@ func (r *Repository) GetGenres() ([]*model.Genre, error) {
 
 func (r *Repository) GetGenre(id int) (*model.Genre, error) {
 	var genre model.Genre
-	result := r.db.First(&genre)
+	result := r.db.First(&genre, id)
 	if result.Error != nil {
 		return nil, result.Error
 	}
