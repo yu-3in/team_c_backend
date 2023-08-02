@@ -20,8 +20,12 @@ func SetupRoutes(e *echo.Echo, db *gorm.DB) {
 	repo := repository.NewRepository(db)
 	h := NewHandler(repo)
 
+	// auth := e.Group("", middleware.AuthenticationMiddleware)
+
 	v1 := e.Group("/v1")
 	{
+		v1.POST("/login", h.Login)
+
 		u := v1.Group("/users")
 		{
 			u.GET("", h.GetUsers)
