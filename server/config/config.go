@@ -1,28 +1,21 @@
 package config
 
 import (
+	"fmt"
+	"os"
 	"server/model"
 
-	"github.com/caarlos0/env"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
-type ServerConfig struct {
-	Environment string `env:"ENV,required"`
-	Port        string `env:"PORT,required"`
-}
-
-func LoadEnvConfig() (*ServerConfig, error) {
-	var cfg ServerConfig
-	if err := env.Parse(&cfg); err != nil {
-		return nil, err
-	}
-	return &cfg, nil
-}
-
 func NewDB() *gorm.DB {
-	dsn := "user:password@tcp(mysql)/db?charset=utf8mb4&parseTime=true"
+	user := os.Getenv("DB_USER")
+	password := os.Getenv("DB_PASSWORD")
+	dbname := os.Getenv("DB_NAME")
+	host := os.Getenv("DB_HOST")
+	port := os.Getenv("DB_PORT")
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=true", user, password, host, port, dbname)
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic("failed to connect database")

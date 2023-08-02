@@ -1,8 +1,9 @@
 package handler
 
 import (
-	"github.com/labstack/echo/v4"
 	"server/model"
+
+	"github.com/labstack/echo/v4"
 )
 
 type reqCreateGenre struct {

@@ -9,15 +9,12 @@ services:
       - .:/app
     working_dir: /app/server
     ports:
-      - "1222:1222"
+      - "${APP_PORT}:1222"
     restart: always
     tty: true
-    environment:
-      ENV: "development"
-      PORT: "1222"
-      DRIVER: "mysql"
-      DATASOURCE: "user:password@tcp(mysql)/db?charset=utf8mb4&parseTime=true"
     command: sh ./scripts/api.sh
+    env_file:
+      - .env
     depends_on:
       - mysql
     networks:
@@ -28,12 +25,12 @@ services:
     platform: "linux/x86_64"
     image: "mysql:8.0"
     ports:
-      - "3306:3306"
+      - "${DB_PORT}:3306"
     environment:
-      MYSQL_DATABASE: db
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-      MYSQL_ROOT_PASSWORD: passwordroot
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
     volumes:
       - "mysql-db:/var/lib/mysql"
       - "./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf"
