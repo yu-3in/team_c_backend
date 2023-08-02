@@ -37,3 +37,11 @@ func (r *Repository) UpdateGenre(genre *model.Genre) (*model.Genre, error) {
 	}
 	return genre, nil
 }
+
+func (r *Repository) DeleteGenre(id int) error {
+	result := r.db.Delete(&model.Genre{}, id)
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
+}

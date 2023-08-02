@@ -113,6 +113,12 @@ func (h *Handler) UpdateME(c echo.Context) error {
 	return c.JSON(200, res)
 }
 
+func (h *Handler) DeleteME(c echo.Context) error {
+	userID := c.Get("userID").(int)
+	h.repo.DeleteMe(userID)
+	return c.NoContent(http.StatusNoContent)
+}
+
 func (h *Handler) CreateUserGenre(c echo.Context) error {
 	userID := c.Get("userID").(int)
 	var req reqUpdateUserGenre

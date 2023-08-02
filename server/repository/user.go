@@ -47,6 +47,14 @@ func (r *Repository) UpdateUser(user *model.User) (*model.User, error) {
 	return user, nil
 }
 
+func (r *Repository) DeleteMe(id int) error {
+	result := r.db.Delete(&model.User{}, id)
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
+}
+
 func (r *Repository) CreateUserGenre(user *model.User) (*model.User, error) {
 	result := r.db.Model(&user).Association("Genres").Append(user.Genres)
 	if result != nil {
