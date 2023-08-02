@@ -37,3 +37,11 @@ func (r *Repository) UpdateTicket(ticket *model.Ticket) (*model.Ticket, error) {
 	}
 	return ticket, nil
 }
+
+func (r *Repository) DeleteTicket(id int) error {
+	result := r.db.Delete(&model.Ticket{}, id)
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
+}

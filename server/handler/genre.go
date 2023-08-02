@@ -74,3 +74,17 @@ func (h *Handler) UpdateGenre(c echo.Context) error {
 	}
 	return c.JSON(200, genre)
 }
+
+func (h *Handler) DeleteGenre(c echo.Context) error {
+	var req struct {
+		ID int `param:"id"`
+	}
+	if err := c.Bind(&req); err != nil {
+		return err
+	}
+	err := h.repo.DeleteGenre(req.ID)
+	if err != nil {
+		return err
+	}
+	return c.NoContent(200)
+}
