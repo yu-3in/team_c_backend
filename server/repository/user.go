@@ -74,3 +74,19 @@ func (r *Repository) GetUser(id int) (*model.User, error) {
 	}
 	return &user, nil
 }
+
+func (r *Repository) CreateUser(user *model.User) (*model.User, error) {
+	result := r.db.Create(user)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return user, nil
+}
+
+func (r *Repository) UpdateUser(user *model.User) (*model.User, error) {
+	result := r.db.Save(user)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return user, nil
+}
