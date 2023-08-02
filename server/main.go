@@ -16,8 +16,11 @@ func main() {
 	// middleware
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
+	e.Use(middleware.CORS())
 
 	db := config.NewDB()
+
+	config.AutoMigrate(db)
 	handler.SetupRoutes(e, db)
 	e.Logger.Fatal(e.Start(":1222"))
 }
