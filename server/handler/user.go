@@ -6,8 +6,6 @@ import (
 	"server/model"
 	"server/util"
 
-	"fmt"
-
 	"github.com/labstack/echo/v4"
 )
 
@@ -129,15 +127,12 @@ func (h *Handler) CreateUserGenre(c echo.Context) error {
 
 	for _, genreID := range req.GenreID {
 		genre, err := h.repo.GetGenre(genreID)
-		fmt.Println(genre, "genre")
-		fmt.Println(genreID, "req.GenreID")
 
 		if err != nil {
 			return c.JSON(500, err)
 		}
 		user.Genres = append(user.Genres, *genre)
 	}
-	fmt.Println(user.Genres, "Genre[]")
 
 	res, err := h.repo.CreateUserGenre(user)
 	if err != nil {
