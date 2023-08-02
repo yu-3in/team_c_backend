@@ -41,7 +41,18 @@ func (h *Handler) GetUser(c echo.Context) error {
 	if err := c.Bind(&req); err != nil {
 		return err
 	}
+
 	user, err := h.repo.GetUser(req.ID)
+	if err != nil {
+		return c.JSON(500, err)
+	}
+	return c.JSON(200, user)
+}
+
+func (h *Handler) GetME(c echo.Context) error {
+	userID := c.Get("userID").(int)
+
+	user, err := h.repo.GetUser(userID)
 	if err != nil {
 		return c.JSON(500, err)
 	}
@@ -76,13 +87,14 @@ func (h *Handler) CreateUser(c echo.Context) error {
 	})
 }
 
-func (h *Handler) UpdateUser(c echo.Context) error {
+func (h *Handler) UpdateME(c echo.Context) error {
+	userID := c.Get("userID").(int)
 	var req reqUpdateUser
 	if err := c.Bind(&req); err != nil {
 		return err
 	}
 
-	user, err := h.repo.GetUser(req.ID)
+	user, err := h.repo.GetUser(userID)
 	if err != nil {
 		return c.JSON(500, err)
 	}
