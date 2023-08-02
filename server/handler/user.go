@@ -13,7 +13,7 @@ type reqCreateUser struct {
 }
 
 type reqUpdateUser struct {
-	ID      int   `param:"id"`
+	ID       int    `param:"id"`
 	Name     string `json:"name"`
 	Email    string `json:"email"`
 	Password string `json:"password"`
@@ -67,7 +67,7 @@ func (h *Handler) UpdateUser(c echo.Context) error {
 	if err != nil {
 		return c.JSON(500, err)
 	}
-	
+
 	user.Name = req.Name
 	user.Email = req.Email
 	res, err := h.repo.UpdateUser(user)
