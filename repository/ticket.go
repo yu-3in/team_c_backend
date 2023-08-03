@@ -6,16 +6,6 @@ import (
 	"server/model"
 )
 
-// Sort
-// 'latest_creation' // 作成日の新しい順
-// 'oldest_creation' // 古い順
-// 'latest_update' // 更新の新しい順
-// 'oldest_update' // 更新の古い順
-
-//filter
-// genreID
-// userID
-
 func (r *Repository) GetTickets(req request.ReqGetTicket) ([]*model.Ticket, error) {
 	var tickets []*model.Ticket
 
@@ -30,12 +20,18 @@ func (r *Repository) GetTickets(req request.ReqGetTicket) ([]*model.Ticket, erro
 		query = query.Where("user_id = ?", req.UserID)
 	}
 
-	// if req.Sort != "" {
-	// 	query = query.Order(req.Sort) // ソート順を指定
-	// }
+	switch req.Sort {
+	case "latest_creation":
+		query = query.Order("created_at desc")
+	case "oldest_creation":
+		query = query.Order("created_at asc")
+	case "latest_update":
+		query = query.Order("updated_at desc")
+	case "oldest_update":
+		query = query.Order("updated_at asc")
+	}
 
 	result := query.Find(&tickets)
-
 	if result.Error != nil {
 		return nil, result.Error
 	}
