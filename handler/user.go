@@ -119,7 +119,11 @@ func (h *Handler) UpdateUserGenre(c echo.Context) error {
 		if err != nil {
 			return c.JSON(500, err)
 		}
-		user.Genres = append(user.Genres, *genre)
+
+		// 重複をチェックしてからジャンルを追加
+		if !isGenreAlreadyAdded(user.Genres, *genre) {
+			user.Genres = append(user.Genres, *genre)
+		}
 	}
 
 	res, err := h.repo.CreateUserGenre(user)
@@ -159,4 +163,14 @@ func (h *Handler) Login(c echo.Context) error {
 
 func (h *Handler) Logout(c echo.Context) error {
 	return c.NoContent(http.StatusNoContent)
+}
+
+// 重複をチェックするヘルパー関数
+func isGenreAlreadyAdded(genres []model.Genre, genre model.Genre) bool {
+	for _, g := range genres {
+		if g.ID == genre.ID {
+			return true
+		}
+	}
+	return false
 }
