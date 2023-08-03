@@ -16,6 +16,6 @@ type Ticket struct {
 	GenreID     int       `json:"genreId"`
 	CreatedAt   time.Time `json:"createdAt"`
 	UpdatedAt   time.Time `json:"updatedAt"`
-	User        User
-	Genre       Genre
+	User        User      `gorm:"foreignKey:UserID"`
+	Genre       Genre     `gorm:"foreignKey:GenreID"`
 }

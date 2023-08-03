@@ -33,6 +33,7 @@ func SetupRoutes(e *echo.Echo, db *gorm.DB) {
 		{
 			auth.GET("/me", h.GetME)
 			auth.PUT("/me", h.UpdateME)
+			v1.DELETE("/me", h.DeleteME)
 			auth.POST("/logout", h.Logout)
 
 			u := auth.Group("/users")
@@ -48,6 +49,7 @@ func SetupRoutes(e *echo.Echo, db *gorm.DB) {
 				g.GET("/:id", h.GetGenre)
 				g.POST("", h.CreateGenre)
 				g.PUT("/:id", h.UpdateGenre)
+				g.DELETE("/:id", h.DeleteGenre)
 			}
 			t := auth.Group("/tickets")
 			{
@@ -55,6 +57,7 @@ func SetupRoutes(e *echo.Echo, db *gorm.DB) {
 				t.GET("/:id", h.GetTicket)
 				t.POST("", h.CreateTicket)
 				t.PUT("/:id", h.UpdateTicket)
+				t.DELETE("/:id", h.DeleteTicket)
 			}
 		}
 	}

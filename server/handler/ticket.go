@@ -83,3 +83,17 @@ func (h *Handler) UpdateTicket(c echo.Context) error {
 
 	return c.JSON(200, ticket)
 }
+
+func (h *Handler) DeleteTicket(c echo.Context) error {
+	var req struct {
+		ID int `param:"id"`
+	}
+	if err := c.Bind(&req); err != nil {
+		return err
+	}
+	err := h.repo.DeleteTicket(req.ID)
+	if err != nil {
+		return err
+	}
+	return c.NoContent(200)
+}
