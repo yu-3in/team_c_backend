@@ -22,7 +22,7 @@ services:
       - $PWD/_tools/mysql/conf.d:/etc/mysql/conf.d:cached
     restart: always
     environment:
-      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_DATABASE: ${DB_NAME}
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"

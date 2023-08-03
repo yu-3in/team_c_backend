@@ -5,7 +5,10 @@ import (
 )
 
 type ReqGetTicket struct {
-	Genre string `query:"genre"`
+	GenreID int `query:"genreId"`
+	UserID int `query:"userId"`
+
+	Sort string `query:"sort"`
 }
 
 type ReqCreateTicket struct {
