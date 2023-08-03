@@ -3,9 +3,9 @@ package handler
 import (
 	"log"
 	"net/http"
+	"server/handler/request"
 	"server/model"
 	"server/util"
-	"server/handler/request"
 
 	"github.com/labstack/echo/v4"
 )

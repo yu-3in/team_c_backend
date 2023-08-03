@@ -15,7 +15,6 @@ type ReqUpdateUserGenre struct {
 	GenreID []int `json:"genre_ids"`
 }
 
-
 type ReqCreateUser struct {
 	Name     string `json:"name"`
 	Email    string `json:"email"`
