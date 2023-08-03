@@ -1,7 +1,6 @@
 package repository
 
 import (
-	"fmt"
 	"server/handler/request"
 	"server/model"
 )
@@ -12,7 +11,6 @@ func (r *Repository) GetTickets(req request.ReqGetTicket) ([]*model.Ticket, erro
 	query := r.db.Preload("User").Preload("Genre")
 
 	if req.GenreID != 0 {
-		fmt.Println("genreID", req.GenreID)
 		query = query.Where("genre_id = ?", req.GenreID)
 	}
 	
@@ -35,9 +33,26 @@ func (r *Repository) GetTickets(req request.ReqGetTicket) ([]*model.Ticket, erro
 	if result.Error != nil {
 		return nil, result.Error
 	}
+
+	if req.Sort == "recommended" {
+		filteredTickets := filterTicketsByGenre(tickets, req.Reco)
+		return filteredTickets, nil
+	}
 	return tickets, nil
 }
 
+func filterTicketsByGenre(tickets []*model.Ticket, genreIDs []int) []*model.Ticket {
+	var filteredTickets []*model.Ticket
+	for _, ticket := range tickets {
+		for _, genreID := range genreIDs {
+			if ticket.GenreID == genreID {
+				filteredTickets = append(filteredTickets, ticket)
+				break
+			}
+		}
+	}
+	return filteredTickets
+}
 
 func (r *Repository) GetTicket(id int) (*model.Ticket, error) {
 	var ticket model.Ticket

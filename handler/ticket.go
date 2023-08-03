@@ -12,6 +12,19 @@ func (h *Handler) GetTickets(c echo.Context) error {
 	if err := c.Bind(&req); err != nil {
 		return err
 	}
+	if req.Sort == "recommended" {
+		userID := c.Get("userID").(int)
+		result, err := h.repo.GetUser(userID)
+		if err != nil {
+			return c.JSON(500, err)
+		}
+		genreIDs := make([]int, len(result.Genres))
+		for i, genre := range result.Genres {
+			genreIDs[i] = genre.ID
+		}
+		req.Reco = genreIDs
+	}
+
 	tickets, err := h.repo.GetTickets(req)
 	if err != nil {
 		return c.JSON(500, err)

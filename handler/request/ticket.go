@@ -9,6 +9,7 @@ type ReqGetTicket struct {
 	UserID int `query:"userId"`
 
 	Sort string `query:"sort"`
+	Reco []int 
 }
 
 type ReqCreateTicket struct {
