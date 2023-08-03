@@ -4,7 +4,12 @@ dry-migrate migrate generate
 
 DOCKER_TAG := latest
 
+run: build-local up
+
 up: ## Start the project
+	docker-compose up
+
+upd: ## Start the project in background
 	docker-compose up -d
 
 down: ## Stop the project
