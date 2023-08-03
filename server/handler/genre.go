@@ -1,21 +1,11 @@
 package handler
 
 import (
+	"server/handler/request"
 	"server/model"
 
 	"github.com/labstack/echo/v4"
 )
-
-type reqCreateGenre struct {
-	Title string `json:"title"`
-	Color string `json:"color"`
-}
-
-type reqUpdateGenre struct {
-	ID    int    `param:"id"`
-	Title string `json:"title"`
-	Color string `json:"color"`
-}
 
 func (h *Handler) GetGenres(c echo.Context) error {
 	genres, err := h.repo.GetGenres()
@@ -40,7 +30,7 @@ func (h *Handler) GetGenre(c echo.Context) error {
 }
 
 func (h *Handler) CreateGenre(c echo.Context) error {
-	var req reqCreateGenre
+	var req request.ReqCreateGenre
 	if err := c.Bind(&req); err != nil {
 		return err
 	}
@@ -55,7 +45,7 @@ func (h *Handler) CreateGenre(c echo.Context) error {
 }
 
 func (h *Handler) UpdateGenre(c echo.Context) error {
-	var req reqUpdateGenre
+	var req request.ReqUpdateGenre
 	if err := c.Bind(&req); err != nil {
 		return err
 	}

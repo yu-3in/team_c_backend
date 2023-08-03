@@ -1,37 +1,18 @@
 package handler
 
 import (
+	"server/handler/request"
 	"server/model"
-	"time"
 
 	"github.com/labstack/echo/v4"
 )
 
-type reqCreateTicket struct {
-	Title       string    `json:"title"`
-	Status      string    `json:"status"`
-	DueDate     time.Time `json:"dateDate"`
-	StartAt     time.Time `json:"startAt"`
-	EndAt       time.Time `json:"endAt"`
-	Description string    `json:"description"`
-	UserID      int       `json:"userId"`
-	GenreID     int       `json:"genreId"`
-}
-
-type reqUpdateTicket struct {
-	ID          int       `param:"id"`
-	Title       string    `json:"title"`
-	Status      string    `json:"status"`
-	DueDate     time.Time `json:"dateDate"`
-	StartAt     time.Time `json:"startAt"`
-	EndAt       time.Time `json:"endAt"`
-	Description string    `json:"description"`
-	UserID      int       `json:"userId"`
-	GenreID     int       `json:"genreId"`
-}
-
 func (h *Handler) GetTickets(c echo.Context) error {
-	tickets, err := h.repo.GetTickets()
+	var req request.ReqGetTicket
+	if err := c.Bind(&req); err != nil {
+		return err
+	}
+	tickets, err := h.repo.GetTickets(req)
 	if err != nil {
 		return c.JSON(500, err)
 	}
@@ -53,7 +34,7 @@ func (h *Handler) GetTicket(c echo.Context) error {
 }
 
 func (h *Handler) CreateTicket(c echo.Context) error {
-	var req reqCreateTicket
+	var req request.ReqCreateTicket
 	if err := c.Bind(&req); err != nil {
 		return err
 	}
@@ -76,7 +57,7 @@ func (h *Handler) CreateTicket(c echo.Context) error {
 }
 
 func (h *Handler) UpdateTicket(c echo.Context) error {
-	var req reqUpdateTicket
+	var req request.ReqUpdateTicket
 	if err := c.Bind(&req); err != nil {
 		return err
 	}
