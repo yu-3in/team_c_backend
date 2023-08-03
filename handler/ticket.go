@@ -12,7 +12,7 @@ func (h *Handler) GetTickets(c echo.Context) error {
 	if err := c.Bind(&req); err != nil {
 		return err
 	}
-	tickets, err := h.repo.GetTickets()
+	tickets, err := h.repo.GetTickets(req)
 	if err != nil {
 		return c.JSON(500, err)
 	}
