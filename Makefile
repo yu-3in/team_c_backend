@@ -1,5 +1,5 @@
 add-network:
-	docker-network create c_network
+	docker network create c_network
 build:
 	docker-compose build
 build-nc:

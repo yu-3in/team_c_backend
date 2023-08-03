@@ -22,7 +22,7 @@ services:
 
   mysql:
     container_name: mysql
-    platform: "linux/x86_64"
+    platform: linux/amd64
     image: "mysql:8.0"
     ports:
       - "${DB_PORT}:3306"
@@ -36,6 +36,7 @@ services:
       - "./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf"
     networks:
       - c_network
+    command: mysqld --innodb_use_native_aio=0
 
   setup:
     container_name: setup
