@@ -85,6 +85,8 @@ func (h *Handler) UpdateME(c echo.Context) error {
 
 	user.Name = req.Name
 	user.Email = req.Email
+	user.DepartmentName = req.DepartmentName
+	user.ProductName = req.ProductName
 	res, err := h.repo.UpdateUser(user)
 	if err != nil {
 		return c.JSON(500, err)

@@ -1,9 +1,11 @@
 package request
 
 type ReqUpdateUser struct {
-	ID    int    `param:"id"`
-	Name  string `json:"name"`
-	Email string `json:"email"`
+	ID             int    `param:"id"`
+	Name           string `json:"name"`
+	Email          string `json:"email"`
+	DepartmentName string `json:"departmentName"`
+	ProductName    string `json:"productName"`
 }
 
 type ReqLoginUser struct {
@@ -12,7 +14,7 @@ type ReqLoginUser struct {
 }
 
 type ReqUpdateUserGenre struct {
-	GenreID []int `json:"genre_ids"`
+	GenreID []int `json:"genreIds"`
 }
 
 type ReqCreateUser struct {
