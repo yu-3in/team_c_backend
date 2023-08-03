@@ -5,11 +5,13 @@ import (
 )
 
 type User struct {
-	ID        int       `json:"id" gorm:"primaryKey"`
-	Name      string    `json:"name" gorm:"unique"`
-	Email     string    `json:"email"`
-	Password  string    `json:"password"`
-	Genres    []Genre   `json:"genres" gorm:"many2many:user_genres;"`
-	CreatedAt time.Time `json:"createdAt"`
-	UpdatedAt time.Time `json:"updatedAt"`
+	ID             int       `json:"id" gorm:"primaryKey"`
+	Name           string    `json:"name" gorm:"unique"`
+	Email          string    `json:"email"`
+	Password       string    `json:"password"`
+	DepartmentName string    `json:"departmentName"`
+	ProductName    string    `json:"productName"`
+	Genres         []Genre   `json:"genres" gorm:"many2many:user_genres;"`
+	CreatedAt      time.Time `json:"createdAt"`
+	UpdatedAt      time.Time `json:"updatedAt"`
 }
