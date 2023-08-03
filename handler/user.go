@@ -101,7 +101,7 @@ func (h *Handler) DeleteME(c echo.Context) error {
 	return c.NoContent(http.StatusNoContent)
 }
 
-func (h *Handler) CreateUserGenre(c echo.Context) error {
+func (h *Handler) UpdateUserGenre(c echo.Context) error {
 	userID := c.Get("userID").(int)
 	var req request.ReqUpdateUserGenre
 	if err := c.Bind(&req); err != nil {

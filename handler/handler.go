@@ -40,7 +40,7 @@ func SetupRoutes(e *echo.Echo, db *gorm.DB) {
 			{
 				u.GET("", h.GetUsers)
 				u.GET("/:id", h.GetUser)
-				u.POST("/genres", h.CreateUserGenre)
+				u.PUT("/genres", h.UpdateUserGenre)
 
 			}
 			g := auth.Group("/genres")
