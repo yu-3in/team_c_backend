@@ -3,32 +3,12 @@ package handler
 import (
 	"log"
 	"net/http"
+	"server/handler/request"
 	"server/model"
 	"server/util"
 
 	"github.com/labstack/echo/v4"
 )
-
-type reqCreateUser struct {
-	Name     string `json:"name"`
-	Email    string `json:"email"`
-	Password string `json:"password"`
-}
-
-type reqUpdateUser struct {
-	ID    int    `param:"id"`
-	Name  string `json:"name"`
-	Email string `json:"email"`
-}
-
-type reqLoginUser struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
-}
-
-type reqUpdateUserGenre struct {
-	GenreID []int `json:"genre_ids"`
-}
 
 func (h *Handler) GetUsers(c echo.Context) error {
 	users, err := h.repo.GetUsers()
@@ -64,7 +44,7 @@ func (h *Handler) GetME(c echo.Context) error {
 }
 
 func (h *Handler) CreateUser(c echo.Context) error {
-	var req reqCreateUser
+	var req request.ReqCreateUser
 	if err := c.Bind(&req); err != nil {
 		return err
 	}
@@ -93,7 +73,7 @@ func (h *Handler) CreateUser(c echo.Context) error {
 
 func (h *Handler) UpdateME(c echo.Context) error {
 	userID := c.Get("userID").(int)
-	var req reqUpdateUser
+	var req request.ReqUpdateUser
 	if err := c.Bind(&req); err != nil {
 		return err
 	}
@@ -121,7 +101,7 @@ func (h *Handler) DeleteME(c echo.Context) error {
 
 func (h *Handler) CreateUserGenre(c echo.Context) error {
 	userID := c.Get("userID").(int)
-	var req reqUpdateUserGenre
+	var req request.ReqUpdateUserGenre
 	if err := c.Bind(&req); err != nil {
 		return err
 	}
@@ -149,7 +129,7 @@ func (h *Handler) CreateUserGenre(c echo.Context) error {
 }
 
 func (h *Handler) Login(c echo.Context) error {
-	var req reqLoginUser
+	var req request.ReqLoginUser
 	if err := c.Bind(&req); err != nil {
 		return err
 	}
