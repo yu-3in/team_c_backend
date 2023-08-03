@@ -6,7 +6,7 @@ import (
 
 func (r *Repository) GetTickets() ([]*model.Ticket, error) {
 	var tickets []*model.Ticket
-	result := r.db.Preload("User").Preload("Genre").First(&tickets)
+	result := r.db.Preload("User").Preload("Genre").Find(&tickets)
 	if result.Error != nil {
 		return nil, result.Error
 	}
