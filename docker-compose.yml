@@ -1,55 +1,30 @@
-version: "3.8"
+version: "3.9"
 services:
-  c-bakend:
-    container_name: c-bakend
+  app:
     build:
       context: .
-      dockerfile: docker/go/Dockerfile
+      dockerfile: Dockerfile
+      target: ${APP_ENV}
+    ports:
+      - "${PORT}:${PORT}"
     volumes:
       - .:/app
-    working_dir: /app/server
-    ports:
-      - "${APP_PORT}:1222"
     restart: always
-    tty: true
-    command: sh ./scripts/api.sh
     env_file:
       - .env
-    depends_on:
-      - mysql
-    networks:
-      - c_network
-
-  mysql:
-    container_name: mysql
+  db:
+    image: mysql:8.0.29
     platform: linux/amd64
-    image: "mysql:8.0"
     ports:
       - "${DB_PORT}:3306"
+    volumes:
+      - msyql_data:/var/lib/mysql
+      - $PWD/_tools/mysql/conf.d:/etc/mysql/conf.d:cached
+    restart: always
     environment:
-      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-    volumes:
-      - "mysql-db:/var/lib/mysql"
-      - "./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf"
-    networks:
-      - c_network
-    command: mysqld --innodb_use_native_aio=0
-
-  setup:
-    container_name: setup
-    image: alpine:latest
-    volumes:
-      - .:/app
-    working_dir: /app
-    command: cp pre-commit .git/hooks/pre-commit
-
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
 volumes:
-  mysql-db:
-    driver: local
-
-networks:
-  c_network:
-    external: true
+  msyql_data:
