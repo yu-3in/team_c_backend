@@ -29,6 +29,10 @@ func (r *Repository) GetTickets(req request.ReqGetTicket) ([]*model.Ticket, erro
 		query = query.Order("updated_at desc")
 	case "oldest_update":
 		query = query.Order("updated_at asc")
+	case "latest_du_date":
+		query = query.Order("du_date asc")
+	case "oldest_du_date":
+		query = query.Order("du_date desc")
 	}
 
 	result := query.Find(&tickets)
