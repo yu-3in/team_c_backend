@@ -69,10 +69,10 @@ func (h *Handler) CreateUser(c echo.Context) error {
 		colorCode = "#ffdc00"
 	case 3:
 		// グリーン green
-		colorCode = "#00a960"
+		colorCode = "#00ac9a"
 	case 4:
 		// ブルー blue
-		colorCode = "#0075c2"
+		colorCode = "#82cddd"
 	case 5:
 		// ブラック black
 		colorCode = "#000000"
