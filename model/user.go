@@ -9,6 +9,7 @@ type User struct {
 	Name           string    `json:"name" gorm:"unique"`
 	Email          string    `json:"email"`
 	Password       string    `json:"password"`
+	IconColor      string    `json:"iconColor"`
 	DepartmentName string    `json:"departmentName"`
 	ProductName    string    `json:"productName"`
 	Genres         []Genre   `json:"genres" gorm:"many2many:user_genres;"`
