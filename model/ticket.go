@@ -12,7 +12,7 @@ type Ticket struct {
 	StartAt          time.Time `json:"startAt"`
 	EndAt            time.Time `json:"endAt"`
 	Description      string    `json:"description"`
-	RaisedHandUserId int       `json:"raisedHandUserId"`
+	RaisedHandUserId int       `json:"raisedHandUserId" gorm:"default:null"`
 	UserID           int       `json:"userId"`
 	GenreID          int       `json:"genreId"`
 	CreatedAt        time.Time `json:"createdAt"`
