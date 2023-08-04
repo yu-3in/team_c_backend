@@ -76,8 +76,9 @@ func (h *Handler) UpdateTicket(c echo.Context) error {
 	ticket.RaisedHandUserId = req.RaisedHandUserId
 	if req.UserID != 0 {
 		ticket.UserID = req.UserID
+	} else {
+		ticket.GenreID = 0
 	}
-	ticket.GenreID = req.GenreID
 
 	ticket, err = h.repo.UpdateTicket(ticket)
 	if err != nil {
