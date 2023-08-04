@@ -2,6 +2,8 @@ package handler
 
 import (
 	"log"
+	"math/rand"
+	"time"
 	"net/http"
 	"server/handler/request"
 	"server/model"
@@ -54,10 +56,33 @@ func (h *Handler) CreateUser(c echo.Context) error {
 		return c.JSON(500, err)
 	}
 
+	rand := rand.New(rand.NewSource(time.Now().UnixNano()))
+	randomNumber := rand.Intn(5) + 1
+
+	colorCode := ""
+	switch randomNumber {
+	case 1:
+		// スカーレット scarlet
+		colorCode = "#ea5532"
+	case 2:
+		// イエロー yellow
+		colorCode = "#ffdc00"
+	case 3:
+		// グリーン green
+		colorCode = "#00a960"
+	case 4:
+		// ブルー blue
+		colorCode = "#0075c2"
+	case 5:
+		// ブラック black
+		colorCode = "#000000"
+	}
+
 	user, err := h.repo.CreateUser(&model.User{
 		Name:     req.Name,
 		Email:    req.Email,
 		Password: hashedPassword,
+		IconColor: colorCode,
 	})
 	if err != nil {
 		return c.JSON(500, err)
@@ -113,6 +138,7 @@ func (h *Handler) CreateUserGenre(c echo.Context) error {
 		return c.JSON(500, err)
 	}
 
+	user.Genres = []model.Genre{}
 	for _, genreID := range req.GenreID {
 		genre, err := h.repo.GetGenre(genreID)
 
