@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"math/rand"
+	"time"
 	"server/handler/request"
 	"server/model"
 )
@@ -35,24 +37,43 @@ func (r *Repository) GetTickets(req request.ReqGetTicket) ([]*model.Ticket, erro
 	}
 
 	if req.Sort == "recommended" {
-		filteredTickets := filterTicketsByGenre(tickets, req.Reco)
+		filteredTickets := filterAndCombineTicketsByGenre(tickets, req.Reco)
 		return filteredTickets, nil
 	}
 	return tickets, nil
 }
 
-func filterTicketsByGenre(tickets []*model.Ticket, genreIDs []int) []*model.Ticket {
+func filterAndCombineTicketsByGenre(tickets []*model.Ticket, genreIDs []int) []*model.Ticket {
 	var filteredTickets []*model.Ticket
+	var unfilteredTickets []*model.Ticket
+
 	for _, ticket := range tickets {
+		matched := false
 		for _, genreID := range genreIDs {
 			if ticket.GenreID == genreID {
 				filteredTickets = append(filteredTickets, ticket)
+				matched = true
 				break
 			}
 		}
+		if !matched {
+			unfilteredTickets = append(unfilteredTickets, ticket)
+		}
 	}
-	return filteredTickets
+
+	shuffleTickets(filteredTickets)
+	resultTickets := append(filteredTickets, unfilteredTickets...)
+	return resultTickets
 }
+
+func shuffleTickets(tickets []*model.Ticket) {
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	for i := len(tickets) - 1; i > 0; i-- {
+		j := r.Intn(i + 1)
+		tickets[i], tickets[j] = tickets[j], tickets[i]
+	}
+}
+
 
 func (r *Repository) GetTicket(id int) (*model.Ticket, error) {
 	var ticket model.Ticket
