@@ -6,7 +6,7 @@ import (
 
 type ReqGetTicket struct {
 	GenreID int `query:"genreId"`
-	UserID int `query:"userId"`
+	UserID  int `query:"userId"`
 
 	Sort string `query:"sort"`
 }
@@ -23,13 +23,14 @@ type ReqCreateTicket struct {
 }
 
 type ReqUpdateTicket struct {
-	ID          int       `param:"id"`
-	Title       string    `json:"title"`
-	Status      string    `json:"status"`
-	DueDate     time.Time `json:"dueDate"`
-	StartAt     time.Time `json:"startAt"`
-	EndAt       time.Time `json:"endAt"`
-	Description string    `json:"description"`
-	UserID      int       `json:"userId"`
-	GenreID     int       `json:"genreId"`
+	ID               int       `param:"id"`
+	Title            string    `json:"title"`
+	Status           string    `json:"status"`
+	DueDate          time.Time `json:"dueDate"`
+	StartAt          time.Time `json:"startAt"`
+	EndAt            time.Time `json:"endAt"`
+	Description      string    `json:"description"`
+	RaisedHandUserId int       `json:"raisedHandUserId"`
+	UserID           int       `json:"userId"`
+	GenreID          int       `json:"genreId"`
 }
