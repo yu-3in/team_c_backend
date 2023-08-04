@@ -96,7 +96,7 @@ func (h *Handler) UpdateTicket(c echo.Context) error {
 	} else {
 		ticket.UserID = 0
 	}
-	ticket.GenreID = req.UserID
+	ticket.GenreID = req.GenreID
 
 	ticket, err = h.repo.UpdateTicket(ticket)
 	if err != nil {
