@@ -2,9 +2,9 @@ package repository
 
 import (
 	"math/rand"
-	"time"
 	"server/handler/request"
 	"server/model"
+	"time"
 )
 
 func (r *Repository) GetTickets(req request.ReqGetTicket) ([]*model.Ticket, error) {
@@ -93,11 +93,23 @@ func (r *Repository) CreateTicket(ticket *model.Ticket) (*model.Ticket, error) {
 }
 
 func (r *Repository) UpdateTicket(ticket *model.Ticket) (*model.Ticket, error) {
+	var userID, genreID interface{}
+	if ticket.UserID == 0 {
+		userID = nil
+	} else {
+		userID = ticket.UserID
+	}
+	
+	if ticket.GenreID == 0 {
+		genreID = nil
+	} else {
+		genreID = ticket.GenreID
+	}
 	sql := `UPDATE tickets SET title=?, status=?, due_date=?, start_at=?, end_at=?, description=?, user_id=?, genre_id=?, created_at=?, updated_at=? WHERE id=?`
-	resuelt := r.db.Exec(sql, ticket.Title, ticket.Status, ticket.DueDate, ticket.StartAt, ticket.EndAt, ticket.Description, ticket.UserID, ticket.GenreID, ticket.CreatedAt, ticket.UpdatedAt, ticket.ID)
+	result := r.db.Exec(sql, ticket.Title, ticket.Status, ticket.DueDate, ticket.StartAt, ticket.EndAt, ticket.Description, userID, genreID, ticket.CreatedAt, ticket.UpdatedAt, ticket.ID)
 
-	if resuelt.Error != nil {
-		return nil, resuelt.Error
+	if result.Error != nil {
+		return nil, result.Error
 	}
 	return ticket, nil
 }
