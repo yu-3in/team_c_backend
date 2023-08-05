@@ -3,11 +3,11 @@ package handler
 import (
 	"log"
 	"math/rand"
-	"time"
 	"net/http"
 	"server/handler/request"
 	"server/model"
 	"server/util"
+	"time"
 
 	"github.com/labstack/echo/v4"
 )
@@ -17,7 +17,7 @@ func (h *Handler) GetUsers(c echo.Context) error {
 	if err != nil {
 		return c.JSON(500, err)
 	}
-	return c.JSON(200, users)
+	return c.JSON(200, request.UserModelToResUsers(users))
 }
 
 func (h *Handler) GetUser(c echo.Context) error {
@@ -32,7 +32,7 @@ func (h *Handler) GetUser(c echo.Context) error {
 	if err != nil {
 		return c.JSON(500, err)
 	}
-	return c.JSON(200, user)
+	return c.JSON(200, request.UserModelToResUser(user))
 }
 
 func (h *Handler) GetME(c echo.Context) error {
@@ -42,7 +42,7 @@ func (h *Handler) GetME(c echo.Context) error {
 	if err != nil {
 		return c.JSON(500, err)
 	}
-	return c.JSON(200, user)
+	return c.JSON(200, request.UserModelToResUser(user))
 }
 
 func (h *Handler) CreateUser(c echo.Context) error {
@@ -79,9 +79,9 @@ func (h *Handler) CreateUser(c echo.Context) error {
 	}
 
 	user, err := h.repo.CreateUser(&model.User{
-		Name:     req.Name,
-		Email:    req.Email,
-		Password: hashedPassword,
+		Name:      req.Name,
+		Email:     req.Email,
+		Password:  hashedPassword,
 		IconColor: colorCode,
 	})
 	if err != nil {
@@ -117,7 +117,7 @@ func (h *Handler) UpdateME(c echo.Context) error {
 		return c.JSON(500, err)
 	}
 
-	return c.JSON(200, res)
+	return c.JSON(200, request.UserModelToResUser(res))
 }
 
 func (h *Handler) DeleteME(c echo.Context) error {
@@ -155,7 +155,7 @@ func (h *Handler) UpdateUserGenre(c echo.Context) error {
 		return c.JSON(500, err)
 	}
 
-	return c.JSON(200, res)
+	return c.JSON(200, request.UserModelToResUser(res))
 }
 
 func (h *Handler) Login(c echo.Context) error {

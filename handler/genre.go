@@ -12,7 +12,7 @@ func (h *Handler) GetGenres(c echo.Context) error {
 	if err != nil {
 		return c.JSON(500, err)
 	}
-	return c.JSON(200, genres)
+	return c.JSON(200, request.GenreModelToResGenres(genres))
 }
 
 func (h *Handler) GetGenre(c echo.Context) error {
@@ -26,7 +26,7 @@ func (h *Handler) GetGenre(c echo.Context) error {
 	if err != nil {
 		return c.JSON(500, err)
 	}
-	return c.JSON(200, genre)
+	return c.JSON(200, request.GenreModelToResGenre(genre))
 }
 
 func (h *Handler) CreateGenre(c echo.Context) error {
@@ -41,7 +41,7 @@ func (h *Handler) CreateGenre(c echo.Context) error {
 	if err != nil {
 		return c.JSON(500, err)
 	}
-	return c.JSON(200, genre)
+	return c.JSON(200, request.GenreModelToResGenre(genre))
 }
 
 func (h *Handler) UpdateGenre(c echo.Context) error {
@@ -62,7 +62,7 @@ func (h *Handler) UpdateGenre(c echo.Context) error {
 	if err != nil {
 		return c.JSON(500, err)
 	}
-	return c.JSON(200, genre)
+	return c.JSON(200, request.GenreModelToResGenre(genre))
 }
 
 func (h *Handler) DeleteGenre(c echo.Context) error {

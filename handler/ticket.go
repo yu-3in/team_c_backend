@@ -29,7 +29,7 @@ func (h *Handler) GetTickets(c echo.Context) error {
 	if err != nil {
 		return c.JSON(500, err)
 	}
-	return c.JSON(200, tickets)
+	return c.JSON(200, request.TicketModelToResTickets(tickets))
 }
 
 func (h *Handler) GetTicket(c echo.Context) error {
@@ -43,7 +43,7 @@ func (h *Handler) GetTicket(c echo.Context) error {
 	if err != nil {
 		return c.JSON(500, err)
 	}
-	return c.JSON(200, ticket)
+	return c.JSON(200, request.TicketModelToResTicket(ticket))
 }
 
 func (h *Handler) CreateTicket(c echo.Context) error {
@@ -66,7 +66,7 @@ func (h *Handler) CreateTicket(c echo.Context) error {
 		return c.JSON(500, err)
 	}
 
-	return c.JSON(200, ticket)
+	return c.JSON(200, request.TicketModelToResTicket(ticket))
 }
 
 func (h *Handler) UpdateTicket(c echo.Context) error {
@@ -103,7 +103,7 @@ func (h *Handler) UpdateTicket(c echo.Context) error {
 		return c.JSON(500, err)
 	}
 
-	return c.JSON(200, ticket)
+	return c.JSON(200, request.TicketModelToResTicket(ticket))
 }
 
 func (h *Handler) DeleteTicket(c echo.Context) error {
